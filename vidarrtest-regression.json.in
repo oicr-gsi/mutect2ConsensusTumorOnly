@@ -1,0 +1,275 @@
+[
+    {
+        "id": "TEST_0001",
+        "description": "runs the mutect2ConsensusTumorOnly workflow with tumor/normal inputs",
+        "arguments": {
+            "mutect2ConsensusTumorOnly.annotation.jobMemory": null,
+            "mutect2ConsensusTumorOnly.annotation.modules": null,
+            "mutect2ConsensusTumorOnly.annotation.threads": null,
+            "mutect2ConsensusTumorOnly.annotation.timeout": null,
+            "mutect2ConsensusTumorOnly.combineVariants.jobMemory": null,
+            "mutect2ConsensusTumorOnly.combineVariants.threads": null,
+            "mutect2ConsensusTumorOnly.combineVariants.timeout": null,
+            "mutect2ConsensusTumorOnly.combineVariants.workflows":  [
+                "mutect2-dcsSc",
+                "mutect2-sscsSc"
+            ],
+            "mutect2ConsensusTumorOnly.filterMaf.jobMemory": null,
+            "mutect2ConsensusTumorOnly.filterMaf.modules": null,
+            "mutect2ConsensusTumorOnly.filterMaf.threads": null,
+            "mutect2ConsensusTumorOnly.filterMaf.timeout": null,
+            "mutect2ConsensusTumorOnly.filterMaf.freqList": "$MAF_FILTERING_ROOT/TGL.frequency.20210609.annot.txt",
+            "mutect2ConsensusTumorOnly.filterMaf.genesToKeep": "$MAF_FILTERING_ROOT/genes_to_keep.txt",
+            "mutect2ConsensusTumorOnly.getFileName.jobMemory": 4,
+            "mutect2ConsensusTumorOnly.getFileName.timeout": 1,
+            "mutect2ConsensusTumorOnly.getFileName.threads": 1,
+            "mutect2ConsensusTumorOnly.mutect2.filter_filterExtraArgs": null,
+            "mutect2ConsensusTumorOnly.mutect2.filter_memory": null,
+            "mutect2ConsensusTumorOnly.mutect2.filter_timeout": null,
+            "mutect2ConsensusTumorOnly.mutect2.gnomad": null,
+            "mutect2ConsensusTumorOnly.mutect2.gnomadIdx": null,
+            "mutect2ConsensusTumorOnly.mutect2.mergeStats_memory": null,
+            "mutect2ConsensusTumorOnly.mutect2.mergeStats_modules": null,
+            "mutect2ConsensusTumorOnly.mutect2.mergeStats_timeout": null,
+            "mutect2ConsensusTumorOnly.mutect2.mergeVCFs_memory": null,
+            "mutect2ConsensusTumorOnly.mutect2.mergeVCFs_timeout": null,
+            "mutect2ConsensusTumorOnly.mutect2.normalBai": null,
+            "mutect2ConsensusTumorOnly.mutect2.normalBam": null,
+            "mutect2ConsensusTumorOnly.mutect2.pon": null,
+            "mutect2ConsensusTumorOnly.mutect2.ponIdx": null,
+            "mutect2ConsensusTumorOnly.mutect2.runMutect2_memory": null,
+            "mutect2ConsensusTumorOnly.mutect2.runMutect2_mutect2ExtraArgs": null,
+            "mutect2ConsensusTumorOnly.mutect2.runMutect2_mutectTag": null,
+            "mutect2ConsensusTumorOnly.mutect2.runMutect2_threads": null,
+            "mutect2ConsensusTumorOnly.mutect2.runMutect2_timeout": null,
+            "mutect2ConsensusTumorOnly.mutect2.splitStringToArray_lineSeparator": null,
+            "mutect2ConsensusTumorOnly.mutect2.splitStringToArray_memory": null,
+            "mutect2ConsensusTumorOnly.mutect2.splitStringToArray_modules": null,
+            "mutect2ConsensusTumorOnly.mutect2.splitStringToArray_timeout": null,
+            "mutect2ConsensusTumorOnly.outputFileNamePrefix": "TGL49_0214",
+            "mutect2ConsensusTumorOnly.reference": "hg38",
+            "mutect2ConsensusTumorOnly.tumorInputGroup":{
+                "allUniqueBamAndIndex": {
+                    "bam": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.all.unique.dcs.sorted.bam",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "bamIndex": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.all.unique.dcs.sorted.bam.bai",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    }
+                },
+                "dcsScBamAndIndex": {
+                    "bam": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.dcs.sc.sorted.bam",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "bamIndex":  {
+                        "contents": {
+                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.dcs.sc.sorted.bam.bai",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    }
+                },
+                "sscsScBamAndIndex": {
+                    "bam":  {
+                        "contents": {
+                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.sscs.sc.sorted.bam",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "bamIndex": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.sscs.sc.sorted.bam.bai",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    }
+                }
+            },
+            "mutect2ConsensusTumorOnly.tumorName": "TGL49_0214_Cf_n_TS",
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.chromosomeArray_jobMemory": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.chromosomeArray_threads": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.chromosomeArray_timeout": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.getSampleNames_jobMemory": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.getSampleNames_threads": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.getSampleNames_timeout": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.mergeMafs_jobMemory": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.mergeMafs_modules": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.mergeMafs_threads": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.mergeMafs_timeout": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.mergeVcfs_extraArgs": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.mergeVcfs_jobMemory": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.mergeVcfs_modules": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.mergeVcfs_overhead": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.mergeVcfs_threads": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.mergeVcfs_timeout": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.normalName": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.subsetVcf_basename": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.subsetVcf_jobMemory": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.subsetVcf_modules": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.subsetVcf_threads": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.subsetVcf_timeout": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_basename": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_jobMemory": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_modules": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_threads": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_timeout": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.tumorOnlyAlign_basename": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.tumorOnlyAlign_jobMemory": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.tumorOnlyAlign_modules": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.tumorOnlyAlign_threads": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.tumorOnlyAlign_timeout": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vcf2maf_basename": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vcf2maf_bufferSize": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vcf2maf_jobMemory": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vcf2maf_minHomVaf": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vcf2maf_species": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vcf2maf_threads": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vcf2maf_timeout": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vcf2maf_vepStats": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vep_addParam": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vep_basename": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vep_jobMemory": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vep_species": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vep_threads": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vep_timeout": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.vep_vepStats": null
+        },
+        "engineArguments": {
+            "write_to_cache": false,
+            "read_from_cache": false
+          },
+        "metadata": {
+            "mutect2ConsensusTumorOnly.filterredMaf": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "mutect2ConsensusTumorOnly.tumorAllUniqueVcf": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "mutect2ConsensusTumorOnly.tumorAllUniqueVcfIndex": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "mutect2ConsensusTumorOnly.tumorDcsScVcf": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "mutect2ConsensusTumorOnly.tumorDcsScVcfIndex": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "mutect2ConsensusTumorOnly.tumorMafOutput": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "mutect2ConsensusTumorOnly.tumorSscsScVcf": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "mutect2ConsensusTumorOnly.tumorSscsScVcfIndex": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "mutect2ConsensusTumorOnly.tumorVepVcf": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "mutect2ConsensusTumorOnly.tumorVepVcfIndex": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            }
+        },
+        "validators": [
+            {
+              "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
+              "metrics_compare": "@CHECKOUT@/tests/compare.sh",
+              "output_metrics": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/output_expectation/TEST_0001.metrics",
+              "type": "script"
+            }
+          ]
+    }
+]

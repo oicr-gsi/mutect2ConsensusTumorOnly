@@ -1,0 +1,6 @@
+{
+    "names": [
+        "mutect2ConsensusTumorOnly"
+    ],
+    "wdl": "mutect2ConsensusTumorOnly.wdl"
+}
