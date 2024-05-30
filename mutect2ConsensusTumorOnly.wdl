@@ -205,7 +205,7 @@ workflow mutect2ConsensusTumorOnly {
       tumorVepVcf: "vep vcf for tumor sample",
       tumorVepVcfIndex: "vep vcf index for tumor sample",
       tumorMafOutput: "maf output for tumor sample",
-      filterredMaf: "maf file after filtering",
+      filterredMaf: "maf file after filtering"
     }
   }
 
@@ -250,7 +250,7 @@ task getFileName {
     memory:  "~{jobMemory} GB"
     cpu:     "~{threads}"
     timeout: "~{timeout}"
-}
+  }
 }
 
 task combineVariants {

@@ -1,4 +1,4 @@
-# mutect2Consensus
+# mutect2ConsensusTumorOnly
 
 The Mutect2Consensus workflow will process umiConsensus outputs for the tumour data through mutect2 in tumour only mode to call variants then use information from the matched normal to identify likely germline variants.
 
@@ -19,7 +19,7 @@ The Mutect2Consensus workflow will process umiConsensus outputs for the tumour d
 
 ### Cromwell
 ```
-java -jar cromwell.jar run mutect2Consensus.wdl --inputs inputs.json
+java -jar cromwell.jar run mutect2ConsensusTumorOnly.wdl --inputs inputs.json
 ```
 
 ### Inputs
@@ -28,15 +28,12 @@ java -jar cromwell.jar run mutect2Consensus.wdl --inputs inputs.json
 Parameter|Value|Description
 ---|---|---
 `tumorInputGroup`|InputGroup|partitioned bam files from umiConsensus outputs for tumor sample
-`normalInputGroup`|InputGroup|partitioned bam files from umiConsensus outputs for normal sample
 `outputFileNamePrefix`|String|Prefix to use for output file
 `intervalFile`|String|interval file to subset variant calls
 `inputIntervalsToParalellizeBy`|String|intervals for parallelization
 `tumorName`|String|Name of the tumor sample
-`normalName`|String|name of the normal sample
 `reference`|String|reference version
 `combineVariants.workflows`|Array[String]|array of ids of producer workflows
-`matchedCombineVariants.workflows`|Array[String]|array of ids of producer workflows
 
 
 #### Optional workflow parameters:
@@ -127,96 +124,13 @@ Parameter|Value|Default|Description
 `variantEffectPredictor.targetBedTask_modules`|String|"bedtools/2.27 tabix/0.2.6"|Required environment modules
 `variantEffectPredictor.targetBedTask_basename`|String|basename("~{vcfFile}",".vcf.gz")|Base name
 `variantEffectPredictor.normalName`|String?|None|Name of the normal sample
+`filterMaf.mafNormalFile`|File?|None|input file for normal sample
 `filterMaf.freqList`|String|"$MAF_FILTERING_ROOT/TGL.frequency.20210609.annot.txt"|frequency list used in maf annotation
 `filterMaf.genesToKeep`|String|"$MAF_FILTERING_ROOT/genes_to_keep.txt"|gene list in maf filtering
 `filterMaf.modules`|String|"python/3.9 pandas/1.4.2 maf-filtering/2023-10-06"|module for running preprocessing
 `filterMaf.jobMemory`|Int|8|memory allocated to preprocessing, in GB
 `filterMaf.timeout`|Int|1|timeout in hours
 `filterMaf.threads`|Int|1|number of cpu threads to be used
-`matchedMutect2.filter_timeout`|Int|12|Hours before task timeout
-`matchedMutect2.filter_memory`|Int|16|Memory allocated for job
-`matchedMutect2.filter_filterExtraArgs`|String?|None|Extra arguments
-`matchedMutect2.mergeStats_timeout`|Int|5|Hours before task timeout
-`matchedMutect2.mergeStats_memory`|Int|4|Memory allocated for job
-`matchedMutect2.mergeStats_modules`|String|"gatk/4.1.6.0"|Names and versions of modules to load
-`matchedMutect2.mergeVCFs_timeout`|Int|12|Hours before task timeout
-`matchedMutect2.mergeVCFs_memory`|Int|4|Memory allocated for job
-`matchedMutect2.runMutect2_timeout`|Int|24|Hours before task timeout
-`matchedMutect2.runMutect2_memory`|Int|32|Memory allocated for job
-`matchedMutect2.runMutect2_threads`|Int|4|Number of threads to request
-`matchedMutect2.runMutect2_mutect2ExtraArgs`|String?|None|Extra arguments
-`matchedMutect2.runMutect2_mutectTag`|String|"mutect2"|Tag
-`matchedMutect2.splitStringToArray_modules`|String|""|Names and versions of modules to load
-`matchedMutect2.splitStringToArray_timeout`|Int|1|Hours before task timeout
-`matchedMutect2.splitStringToArray_memory`|Int|1|Memory allocated for job
-`matchedMutect2.splitStringToArray_lineSeparator`|String|","|line separator
-`matchedMutect2.pon`|File?|None|pon
-`matchedMutect2.ponIdx`|File?|None|pon ID
-`matchedMutect2.gnomad`|File?|None|gnomad
-`matchedMutect2.gnomadIdx`|File?|None|gnomad ID
-`matched_getFileName.jobMemory`|Int|4|memory allocated to preprocessing, in GB
-`matched_getFileName.timeout`|Int|1|timeout in hours
-`matched_getFileName.threads`|Int|1|number of cpu threads to be used
-`matchedCombineVariants.jobMemory`|Int|24|memory allocated to preprocessing, in GB
-`matchedCombineVariants.timeout`|Int|20|timeout in hours
-`matchedCombineVariants.threads`|Int|8|number of cpu threads to be used
-`matchedAnnotation.modules`|String|"samtools/1.9 bcftools/1.9 htslib/1.9 tabix/1.9"|module for running preprocessing
-`matchedAnnotation.jobMemory`|Int|24|memory allocated to preprocessing, in GB
-`matchedAnnotation.timeout`|Int|20|timeout in hours
-`matchedAnnotation.threads`|Int|8|number of cpu threads to be used
-`matchedVep.mergeVcfs_timeout`|Int|24|Maximum amount of time (in hours) the task can run for.
-`matchedVep.mergeVcfs_threads`|Int|4|Requested CPU threads.
-`matchedVep.mergeVcfs_overhead`|Int|6|Java overhead memory (in GB). jobMemory - overhead == java Xmx/heap memory.
-`matchedVep.mergeVcfs_jobMemory`|Int|24|Memory allocated to job (in GB).
-`matchedVep.mergeVcfs_extraArgs`|String?|None|Additional arguments to be passed directly to the command.
-`matchedVep.mergeVcfs_modules`|String|"gatk/4.1.7.0"|Required environment modules.
-`matchedVep.mergeMafs_timeout`|Int|24|Maximum amount of time (in hours) the task can run for.
-`matchedVep.mergeMafs_threads`|Int|4|Requested CPU threads.
-`matchedVep.mergeMafs_jobMemory`|Int|24|Memory allocated to job (in GB).
-`matchedVep.mergeMafs_modules`|String|"tabix/0.2.6"|Required environment modules
-`matchedVep.vcf2maf_timeout`|Int|48|Hours before task timeout
-`matchedVep.vcf2maf_threads`|Int|4|Requested CPU threads
-`matchedVep.vcf2maf_jobMemory`|Int|32|Memory allocated for this job (GB)
-`matchedVep.vcf2maf_bufferSize`|Int|200|The buffer size
-`matchedVep.vcf2maf_minHomVaf`|Float|0.7|The minimum vaf for homozygous calls
-`matchedVep.vcf2maf_vepStats`|Boolean|true|If vepStats is true, remove flag '--no_stats' from vep. If vepStats is false, running vep with flag '--no_stats'
-`matchedVep.vcf2maf_species`|String|"homo_sapiens"|Species name
-`matchedVep.vcf2maf_basename`|String|basename("~{vcfFile}",".vcf.gz")|Base name
-`matchedVep.tumorOnlyAlign_timeout`|Int|6|Hours before task timeout
-`matchedVep.tumorOnlyAlign_threads`|Int|4|Requested CPU threads
-`matchedVep.tumorOnlyAlign_jobMemory`|Int|32|Memory allocated for this job (GB)
-`matchedVep.tumorOnlyAlign_modules`|String|"bcftools/1.9 tabix/0.2.6"|Required environment modules
-`matchedVep.tumorOnlyAlign_basename`|String|basename("~{vcfFile}",".vcf.gz")|Base name
-`matchedVep.vep_timeout`|Int|16|Hours before task timeout
-`matchedVep.vep_threads`|Int|4|Requested CPU threads
-`matchedVep.vep_jobMemory`|Int|32|Memory allocated for this job (GB)
-`matchedVep.vep_vepStats`|Boolean|true|If vepStats is true, remove flag '--no_stats' from vep. If vepStats is false, running vep with flag '--no_stats'
-`matchedVep.vep_species`|String|"homo_sapiens"|Species name
-`matchedVep.vep_addParam`|String?|None|Additional vep parameters
-`matchedVep.vep_basename`|String|basename("~{vcfFile}",".vcf.gz")|Base name
-`matchedVep.subsetVcf_timeout`|Int|6|Maximum amount of time (in hours) the task can run for.
-`matchedVep.subsetVcf_threads`|Int|4|Requested CPU threads.
-`matchedVep.subsetVcf_jobMemory`|Int|32|Memory allocated to job (in GB).
-`matchedVep.subsetVcf_modules`|String|"bcftools/1.9"|Required environment modules
-`matchedVep.subsetVcf_basename`|String|basename("~{vcfFile}",".vcf.gz")|Base name
-`matchedVep.chromosomeArray_timeout`|Int|1|Maximum amount of time (in hours) the task can run for.
-`matchedVep.chromosomeArray_threads`|Int|4|Requested CPU threads.
-`matchedVep.chromosomeArray_jobMemory`|Int|1|Memory allocated to job (in GB).
-`matchedVep.getSampleNames_timeout`|Int|1|Hours before task timeout
-`matchedVep.getSampleNames_threads`|Int|4|Requested CPU threads
-`matchedVep.getSampleNames_jobMemory`|Int|1|Memory allocated for this job (GB)
-`matchedVep.targetBedTask_timeout`|Int|6|Hours before task timeout
-`matchedVep.targetBedTask_threads`|Int|4|Requested CPU threads
-`matchedVep.targetBedTask_jobMemory`|Int|32|Memory allocated for this job (GB)
-`matchedVep.targetBedTask_modules`|String|"bedtools/2.27 tabix/0.2.6"|Required environment modules
-`matchedVep.targetBedTask_basename`|String|basename("~{vcfFile}",".vcf.gz")|Base name
-`matchedFilterMaf.mafNormalFile`|File?|None|input file for normal sample
-`matchedFilterMaf.freqList`|String|"$MAF_FILTERING_ROOT/TGL.frequency.20210609.annot.txt"|frequency list used in maf annotation
-`matchedFilterMaf.genesToKeep`|String|"$MAF_FILTERING_ROOT/genes_to_keep.txt"|gene list in maf filtering
-`matchedFilterMaf.modules`|String|"python/3.9 pandas/1.4.2 maf-filtering/2023-10-06"|module for running preprocessing
-`matchedFilterMaf.jobMemory`|Int|8|memory allocated to preprocessing, in GB
-`matchedFilterMaf.timeout`|Int|1|timeout in hours
-`matchedFilterMaf.threads`|Int|1|number of cpu threads to be used
 
 
 ### Outputs
@@ -232,76 +146,142 @@ Output | Type | Description
 `tumorVepVcf`|File|vep vcf for tumor sample
 `tumorVepVcfIndex`|File|vep vcf index for tumor sample
 `tumorMafOutput`|File?|maf output for tumor sample
-`normalDcsScVcf`|File|DCS vcf for normal sample
-`normalDcsScVcfIndex`|File|DCS vcf index for normal sample
-`normalSscsScVcf`|File|SSCS vcf for normal sample
-`normalSscsScVcfIndex`|File|SSCS vcf index for normal sample
-`normalAllUniqueVcf`|File|vcf of DCS + singletons for tumor sample
-`normalAllUniqueVcfIndex`|File|vcf index for DCS + singletons for tumor sample
-`normalVepVcf`|File|vep vcf for normal sample
-`normalVepVcfIndex`|File|vep vcf index for normal sample
-`normalMafOutput`|File?|maf output for normal sample
-`matchedDcsScVcf`|File|DCS vcf for matched samples
-`matchedDcsScVcfIndex`|File|DCS vcf index for matched samples
-`matchedSscsScVcf`|File|SSCS vcf for matched samples
-`matchedSscsScVcfIndex`|File|SSCS vcf index for matched samples
-`matchedAllUniqueVcf`|File|vcf of DCS + singletons for matched samples
-`matchedAllUniqueVcfIndex`|File|vcf index for DCS + singletons for matched samples
-`matchedVepVcf`|File|vep vcf for matched samples
-`matchedVepVcfIndex`|File|vep vcf index for matched samples
-`matchedMafOutput`|File?|maf output for matched samples
 `filterredMaf`|File?|maf file after filtering
-`matchedFilterredMaf`|File?|maf file after filtering for matched maf(maf file of matched tumor/normal version)
-
 
 ## Commands
- This section lists command(s) run by mutect2Consensus workflow
- 
- * Running mutect2Consensus
- 
- ```
+This section lists command(s) run by mutect2ConsensusTumorOnly workflow
+
+* Running mutect2ConsensusTumorOnly
+
+```
+    basename ~{fileName} | cut -d. -f1 
+```
+```
+  python3<<CODE
+  import subprocess
+  import sys
+  inputStrings = []
+  v = "~{sep=' ' inputVcfs}"
+  vcfFiles = v.split()
+  w = "~{sep=' ' workflows}"
+  workflowIds = w.split()
+  priority = "~{priority}"
   
-  <<<
+  if len(vcfFiles) != len(workflowIds):
+      print("The arrays with input files and their respective workflow names are not of equal size!")
+  else:
+      for f in range(0, len(vcfFiles)):
+          inputStrings.append("--variant:" + workflowIds[f] + " " + vcfFiles[f])
+
+  javaMemory = ~{jobMemory} - 6 
+  gatkCommand  = "$JAVA_ROOT/bin/java -Xmx" + str(javaMemory) + "G -jar $GATK_ROOT/GenomeAnalysisTK.jar "
+  gatkCommand += "-T CombineVariants "
+  gatkCommand += " ".join(inputStrings)
+  gatkCommand += " -R ~{referenceFasta} "
+  gatkCommand += "-o ~{outputPrefix}_combined.vcf.gz "
+  gatkCommand += "-genotypeMergeOptions PRIORITIZE "
+  gatkCommand += "-priority " + priority
+  gatkCommand += " 2>&1"
+
+  result_output = subprocess.run(gatkCommand, shell=True)
+  sys.exit(result_output.returncode)
+  
+```
+```
+  bcftools annotate -a ~{uniqueVcf} \
+ -c FMT/AD,FMT/DP ~{mergedVcf} -Oz \
+ -o "~{outputPrefix}.merged.vcf.gz"
+
+ tabix -p vcf "~{outputPrefix}.merged.vcf.gz"
+```
+```
     python3<<CODE
-    import subprocess
-    import sys
-    inputStrings = []
-    v = "~{sep=' ' inputVcfs}"
-    vcfFiles = v.split()
-    w = "~{sep=' ' workflows}"
-    workflowIds = w.split()
-    priority = "~{priority}"
+    ## Adapted from https://github.com/oicr-gsi/djerba/blob/GCGI-806_v1.0.0-dev/src/lib/djerba/plugins/tar/snv_indel/plugin.py
+    ## this code will filter a maf file, generated from tumor-only mutect2 calls to identify likely germline calls generated from a mutect2 calls from the matched normal
+    import pandas as pd
+    maf_file_path = "~{mafFile}"
+    maf_normal_path = "~{mafNormalFile}"
+    freq_list_path = "~{freqList}"
+    output_path_prefix = "~{outputPrefix}"
+    genes_to_keep_path = "~{genesToKeep}"
+
+    if maf_normal_path:
+      df_bc = pd.read_csv(maf_normal_path,
+                      sep = "\t",
+                      on_bad_lines="error",
+                      compression='gzip',
+                      skiprows=[0])
+
+    df_pl = pd.read_csv(maf_file_path,
+                    sep = "\t",
+                    on_bad_lines="error",
+                    compression='gzip',
+                    skiprows=[0])
+    df_freq = pd.read_csv(freq_list_path,
+                  sep = "\t")
+    with open(genes_to_keep_path) as f:
+      GENES_TO_KEEP = f.read()
+
+
+    for row in df_pl.iterrows():
+      hugo_symbol = row[1]['Hugo_Symbol']
+      chromosome = row[1]['Chromosome']
+      start_position = row[1]['Start_Position']
+      reference_allele = row[1]['Reference_Allele']
+      allele = row[1]['Allele']
+
+      # If there is normal input, annotate rows with information from the matched normal and from the frequency table
+      if maf_normal_path:
+        # Lookup the entry in the BC and annotate the tumour maf with
+        #   n_depth, n_ref_count, n_alt_count
+
+        row_lookup = df_bc[(df_bc['Hugo_Symbol'] == hugo_symbol) & 
+                    (df_bc['Chromosome'] == chromosome) & 
+                    (df_bc['Start_Position'] == start_position) &
+                    (df_bc['Reference_Allele'] == reference_allele) &
+                    (df_bc['Allele'] == allele)]
+
+
+        # If there's only one entry, take its normal values
+        if len(row_lookup) == 1:
+            df_pl.at[row[0], "n_depth"] = row_lookup['n_depth'].item()
+            df_pl.at[row[0], "n_ref_count"] = row_lookup['n_ref_count'].item()
+            df_pl.at[row[0], "n_alt_count"] = row_lookup['n_alt_count'].item()
+      
+        # If the entry isn't in the table, 
+        # or if there is more than one value and so you can't choose which normal values to take, 
+        # set them as 0
+        else:
+            df_pl.at[row[0], "n_depth"] = 0
+            df_pl.at[row[0], "n_ref_count"] = 0
+            df_pl.at[row[0], "n_alt_count"] = 0
+            
+      # Lookup the entry in the frequency table and annotate the tumour maf with Freq
     
-    if len(vcfFiles) != len(workflowIds):
-        print("The arrays with input files and their respective workflow names are not of equal size!")
-    else:
-        for f in range(0, len(vcfFiles)):
-            inputStrings.append("--variant:" + workflowIds[f] + " " + vcfFiles[f])
-  
-    javaMemory = ~{jobMemory} - 6 
-    gatkCommand  = "$JAVA_ROOT/bin/java -Xmx" + str(javaMemory) + "G -jar $GATK_ROOT/GenomeAnalysisTK.jar "
-    gatkCommand += "-T CombineVariants "
-    gatkCommand += " ".join(inputStrings)
-    gatkCommand += " -R ~{referenceFasta} "
-    gatkCommand += "-o ~{outputPrefix}_combined.vcf.gz "
-    gatkCommand += "-genotypeMergeOptions PRIORITIZE "
-    gatkCommand += "-priority " + priority
-    gatkCommand += " 2>&1"
-  
-    result_output = subprocess.run(gatkCommand, shell=True)
-    sys.exit(result_output.returncode)
+      row_lookup = df_freq[(df_freq['Start_Position'] == row[1]['Start_Position']) &
+                          (df_freq['Reference_Allele'] == row[1]['Reference_Allele']) &
+                          ((df_freq['Tumor_Seq_Allele'] == row[1]['Tumor_Seq_Allele1']) |
+                          (df_freq['Tumor_Seq_Allele'] == row[1]['Tumor_Seq_Allele2']))]
+
+      if len(row_lookup) > 0:
+          df_pl.at[row[0], 'Freq'] = row_lookup['Freq'].item()
+      else:
+          df_pl.at[row[0], 'Freq'] = 0
+
+    # Filter the maf to remove rows based on various criteria, but always maintaining genes in the GENES_TO_KEEP list  
+    for row in df_pl.iterrows():
+        hugo_symbol = row[1]['Hugo_Symbol']
+        frequency = row[1]['Freq']
+        gnomAD_AF = row[1]['gnomAD_AF']
+        n_alt_count = row[1]['n_alt_count']
+        if hugo_symbol not in GENES_TO_KEEP or frequency > 0.1 or n_alt_count > 4 or gnomAD_AF > 0.001:
+            df_pl = df_pl.drop(row[0])   
+
+    df_pl.to_csv(output_path_prefix + '_filtered_maf_for_tar.maf.gz', sep = "\t", compression='gzip', index=False)
     CODE
-  >>>
-  ```
-  ```
-  
-    bcftools annotate -a ~{uniqueVcf} \
-   -c FMT/AD,FMT/DP ~{mergedVcf} -Oz \
-   -o "~{outputPrefix}.merged.vcf.gz"
-  
-   tabix -p vcf "~{outputPrefix}.merged.vcf.gz"
-  ```
-   ## Support
+```
+
+## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
 
