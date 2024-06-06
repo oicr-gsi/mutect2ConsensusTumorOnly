@@ -74,12 +74,10 @@ workflow mutect2ConsensusTumorOnly {
 
   parameter_meta {
     tumorInputGroup: "partitioned bam files from umiConsensus outputs for tumor sample"
-    normalInputGroup: "partitioned bam files from umiConsensus outputs for normal sample"
     outputFileNamePrefix: "Prefix to use for output file"
     intervalFile: "interval file to subset variant calls"
     inputIntervalsToParalellizeBy: "intervals for parallelization"
     tumorName: "Name of the tumor sample"
-    normalName: "name of the normal sample"
     reference: "reference version"
   }
 
@@ -163,7 +161,7 @@ workflow mutect2ConsensusTumorOnly {
   meta {
     author: "Alexander Fortuna, Rishi Shah and Gavin Peng"
     email: "alexander.fortuna@oicr.on.ca, rshah@oicr.on.ca, and gpeng@oicr.on.ca"
-    description: "The Mutect2Consensus workflow will process umiConsensus outputs for the tumour data through mutect2 in tumour only mode to call variants then use information from the matched normal to identify likely germline variants."
+    description: "The Mutect2Consensus workflow will process umiConsensus outputs for the tumour data through mutect2 in tumour only mode to call variants and annotation."
     dependencies: [
       {
         name: "gatk/3.6-0",
@@ -400,7 +398,7 @@ task filterMaf {
   command <<<
     python3<<CODE
     ## Adapted from https://github.com/oicr-gsi/djerba/blob/GCGI-806_v1.0.0-dev/src/lib/djerba/plugins/tar/snv_indel/plugin.py
-    ## this code will filter a maf file, generated from tumor-only mutect2 calls to identify likely germline calls generated from a mutect2 calls from the matched normal
+    ## this code will filter a maf file, generated from tumor-only mutect2 calls 
     import pandas as pd
     maf_file_path = "~{mafFile}"
     maf_normal_path = "~{mafNormalFile}"
