@@ -194,17 +194,47 @@ workflow mutect2ConsensusTumorOnly {
     ]
 
     output_meta: {
-      tumorDcsScVcf: "DCS vcf for tumor sample",
-      tumorDcsScVcfIndex: "DCS vcf index for tumor sample",
-      tumorSscsScVcf: "SSCS vcf for tumor sample",
-      tumorSscsScVcfIndex: "SSCS vcf index for tumor sample",
-      tumorAllUniqueVcf: "vcf of DCS + singletons for tumor sample",
-      tumorAllUniqueVcfIndex: "vcf index for DCS + singletons for tumor sample",
-      tumorVepVcf: "vep vcf for tumor sample",
-      tumorVepVcfIndex: "vep vcf index for tumor sample",
-      tumorMafOutput: "maf output for tumor sample",
-      filterredMaf: "maf file after filtering"
+    tumorDcsScVcf: {
+        description: "DCS vcf for tumor sample",
+        vidarr_label: "tumorDcsScVcf"
+    },
+    tumorDcsScVcfIndex: {
+        description: "DCS vcf index for tumor sample",
+        vidarr_label: "tumorDcsScVcfIndex"
+    },
+    tumorSscsScVcf: {
+        description: "SSCS vcf for tumor sample",
+        vidarr_label: "tumorSscsScVcf"
+    },
+    tumorSscsScVcfIndex: {
+        description: "SSCS vcf index for tumor sample",
+        vidarr_label: "tumorSscsScVcfIndex"
+    },
+    tumorAllUniqueVcf: {
+        description: "vcf of DCS + singletons for tumor sample",
+        vidarr_label: "tumorAllUniqueVcf"
+    },
+    tumorAllUniqueVcfIndex: {
+        description: "vcf index for DCS + singletons for tumor sample",
+        vidarr_label: "tumorAllUniqueVcfIndex"
+    },
+    tumorVepVcf: {
+        description: "vep vcf for tumor sample",
+        vidarr_label: "tumorVepVcf"
+    },
+    tumorVepVcfIndex: {
+        description: "vep vcf index for tumor sample",
+        vidarr_label: "tumorVepVcfIndex"
+    },
+    tumorMafOutput: {
+        description: "maf output for tumor sample",
+        vidarr_label: "tumorMafOutput"
+    },
+    filterredMaf: {
+        description: "maf file after filtering",
+        vidarr_label: "filterredMaf"
     }
+}
   }
 
   output {
