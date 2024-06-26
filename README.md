@@ -135,29 +135,31 @@ Parameter|Value|Default|Description
 
 ### Outputs
 
-Output | Type | Description
----|---|---
-`tumorDcsScVcf`|File|DCS vcf for tumor sample
-`tumorDcsScVcfIndex`|File|DCS vcf index for tumor sample
-`tumorSscsScVcf`|File|SSCS vcf for tumor sample
-`tumorSscsScVcfIndex`|File|SSCS vcf index for tumor sample
-`tumorAllUniqueVcf`|File|vcf of DCS + singletons for tumor sample
-`tumorAllUniqueVcfIndex`|File|vcf index for DCS + singletons for tumor sample
-`tumorVepVcf`|File|vep vcf for tumor sample
-`tumorVepVcfIndex`|File|vep vcf index for tumor sample
-`tumorMafOutput`|File?|maf output for tumor sample
-`filterredMaf`|File?|maf file after filtering
+Output | Type | Description | Labels
+---|---|---|---
+`tumorDcsScVcf`|File|DCS vcf for tumor sample|vidarr_label: tumorDcsScVcf
+`tumorDcsScVcfIndex`|File|DCS vcf index for tumor sample|vidarr_label: tumorDcsScVcfIndex
+`tumorSscsScVcf`|File|SSCS vcf for tumor sample|vidarr_label: tumorSscsScVcf
+`tumorSscsScVcfIndex`|File|SSCS vcf index for tumor sample|vidarr_label: tumorSscsScVcfIndex
+`tumorAllUniqueVcf`|File|vcf of DCS + singletons for tumor sample|vidarr_label: tumorAllUniqueVcf
+`tumorAllUniqueVcfIndex`|File|vcf index for DCS + singletons for tumor sample|vidarr_label: tumorAllUniqueVcfIndex
+`tumorVepVcf`|File|vep vcf for tumor sample|vidarr_label: tumorVepVcf
+`tumorVepVcfIndex`|File|vep vcf index for tumor sample|vidarr_label: tumorVepVcfIndex
+`tumorMafOutput`|File?|maf output for tumor sample|vidarr_label: tumorMafOutput
+`filterredMaf`|File?|maf file after filtering|vidarr_label: filterredMaf
 
 
 ## Commands
- This section lists command(s) run by mutect2ConsensusTumorOnly workflow
+This section lists command(s) run by mutect2ConsensusTumorOnly workflow
  
- * Running mutect2ConsensusTumorOnly
- 
+* Running mutect2ConsensusTumorOnly
  
 ```
      basename ~{fileName} | cut -d. -f1 
 ```
+ 
+### Preprocess and CombineVariants
+ 
 ```
    python3<<CODE
    import subprocess
@@ -189,6 +191,9 @@ Output | Type | Description
    sys.exit(result_output.returncode)
    CODE
 ```
+ 
+### Annotate with bcftools
+ 
 ```
    bcftools annotate -a ~{uniqueVcf} \
   -c FMT/AD,FMT/DP ~{mergedVcf} -Oz \
@@ -196,6 +201,9 @@ Output | Type | Description
  
   tabix -p vcf "~{outputPrefix}.merged.vcf.gz"
 ```
+ 
+### Generate consensus calls
+ 
 ```
      python3<<CODE
      ## Adapted from https://github.com/oicr-gsi/djerba/blob/GCGI-806_v1.0.0-dev/src/lib/djerba/plugins/tar/snv_indel/plugin.py
@@ -282,7 +290,7 @@ Output | Type | Description
      df_pl.to_csv(output_path_prefix + '_filtered_maf_for_tar.maf.gz', sep = "\t", compression='gzip', index=False)
      CODE
 ```
- ## Support
+## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
 
