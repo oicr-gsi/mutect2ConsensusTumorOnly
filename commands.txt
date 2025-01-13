@@ -1,15 +1,7 @@
 ## Commands
-This section lists command(s) run by mutect2consensustumoronly workflow
+This section lists command(s) run by Mutect2ConsensusTumorOnly workflow
 
-* Running mutect2consensustumoronly
-
-### Derive file name
-
-```
-    basename ~{fileName} | cut -d. -f1 
-```
-
-### Preprocess and CombineVariants
+* Running Mutect2ConsensusTumorOnly
 
 ```
   python3<<CODE
@@ -42,9 +34,6 @@ This section lists command(s) run by mutect2consensustumoronly workflow
   sys.exit(result_output.returncode)
   CODE
 ```
-
-### Annotate with bcftools
-
 ```
   bcftools annotate -a ~{uniqueVcf} \
  -c FMT/AD,FMT/DP ~{mergedVcf} -Oz \
@@ -52,19 +41,16 @@ This section lists command(s) run by mutect2consensustumoronly workflow
 
  tabix -p vcf "~{outputPrefix}.merged.vcf.gz"
 ```
-
-### Generate consensus calls
-
 ```
     python3<<CODE
     ## Adapted from https://github.com/oicr-gsi/djerba/blob/GCGI-806_v1.0.0-dev/src/lib/djerba/plugins/tar/snv_indel/plugin.py
-    ## this code will filter a maf file, generated from tumor-only mutect2 calls 
+    ## this code will filter a maf file, generated from tumor-only mutect2 calls to identify likely germline calls generated from a mutect2 calls from the matched normal
     import pandas as pd
     maf_file_path = "~{mafFile}"
     maf_normal_path = "~{mafNormalFile}"
     freq_list_path = "~{freqList}"
     output_path_prefix = "~{outputPrefix}"
-    genes_to_keep_path = "~{genesToKeep}"
+    clean_columns = ["t_depth", "t_ref_count", "t_alt_count", "n_depth", "n_ref_count", "n_alt_count", "gnomAD_AF"]
 
     if maf_normal_path:
       df_bc = pd.read_csv(maf_normal_path,
@@ -73,19 +59,31 @@ This section lists command(s) run by mutect2consensustumoronly workflow
                       compression='gzip',
                       skiprows=[0])
 
+      # Clean up df_bc if normal maf available
+      for column in clean_columns:
+        # Convert to numeric, setting errors='coerce' to turn non-numeric values into NaN
+        df_bc[column] = pd.to_numeric(df_bc[column], errors='coerce')
+        # Replace NaN with 0
+        df_bc[column] = df_bc[column].fillna(0)
+
     df_pl = pd.read_csv(maf_file_path,
                     sep = "\t",
                     on_bad_lines="error",
                     compression='gzip',
                     skiprows=[0])
+    
+    # Clean up df_pl
+    for column in clean_columns:
+      # Convert to numeric, setting errors='coerce' to turn non-numeric values into NaN
+      df_pl[column] = pd.to_numeric(df_pl[column], errors='coerce')
+      # Replace NaN with 0
+      df_pl[column] = df_pl[column].fillna(0)
+
     df_freq = pd.read_csv(freq_list_path,
                   sep = "\t")
-    with open(genes_to_keep_path) as f:
-      GENES_TO_KEEP = f.read()
 
 
     for row in df_pl.iterrows():
-      hugo_symbol = row[1]['Hugo_Symbol']
       chromosome = row[1]['Chromosome']
       start_position = row[1]['Start_Position']
       reference_allele = row[1]['Reference_Allele']
@@ -96,7 +94,7 @@ This section lists command(s) run by mutect2consensustumoronly workflow
         # Lookup the entry in the BC and annotate the tumour maf with
         #   n_depth, n_ref_count, n_alt_count
 
-        row_lookup = df_bc[(df_bc['Hugo_Symbol'] == hugo_symbol) & 
+        row_lookup = df_bc[
                     (df_bc['Chromosome'] == chromosome) & 
                     (df_bc['Start_Position'] == start_position) &
                     (df_bc['Reference_Allele'] == reference_allele) &
@@ -129,15 +127,14 @@ This section lists command(s) run by mutect2consensustumoronly workflow
       else:
           df_pl.at[row[0], 'Freq'] = 0
 
-    # Filter the maf to remove rows based on various criteria, but always maintaining genes in the GENES_TO_KEEP list  
+    # Filter the maf to remove rows based on various criteria
     for row in df_pl.iterrows():
-        hugo_symbol = row[1]['Hugo_Symbol']
         frequency = row[1]['Freq']
         gnomAD_AF = row[1]['gnomAD_AF']
         n_alt_count = row[1]['n_alt_count']
-        if hugo_symbol not in GENES_TO_KEEP or frequency > 0.1 or n_alt_count > 4 or gnomAD_AF > 0.001:
+        if  frequency > 0.1 or n_alt_count > 4 or gnomAD_AF > 0.001:
             df_pl = df_pl.drop(row[0])   
 
-    df_pl.to_csv(output_path_prefix + '_filtered_maf_for_tar.maf.gz', sep = "\t", compression='gzip', index=False)
+    df_pl.to_csv(output_path_prefix + '_filtered_maf.gz', sep = "\t", compression='gzip', index=False)
     CODE
-```
+  ```
