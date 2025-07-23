@@ -4,7 +4,7 @@
         "description": "runs the mutect2ConsensusTumorOnly workflow with tumor/normal inputs",
         "arguments": {
             "mutect2ConsensusTumorOnly.inputIntervalsToParalellizeBy": "chr1,chr2,chr3,chr4,chr5,chr6,chr7,chr8,chr9,chr10,chr11,chr12,chr13,chr14,chr15,chr16,chr17,chr18,chr19,chr20,chr21,chr22,chrX,chrY",
-            "mutect2ConsensusTumorOnly.intervalFile": "/.mounts/labs/gsi/testdata/mutect2Consensus/input_data/CHARM.TS.hg38.bed",
+            "mutect2ConsensusTumorOnly.intervalFile": "/.mounts/labs/gsi/testdata/mutect2Consensus/test_inputs/TEST.TS.hg38.bed",
             "mutect2ConsensusTumorOnly.filterMaf.mafNormalFile": null,
             "mutect2ConsensusTumorOnly.annotation.jobMemory": null,
             "mutect2ConsensusTumorOnly.annotation.modules": null,
@@ -49,13 +49,13 @@
             "mutect2ConsensusTumorOnly.mutect2.splitStringToArray_memory": null,
             "mutect2ConsensusTumorOnly.mutect2.splitStringToArray_modules": null,
             "mutect2ConsensusTumorOnly.mutect2.splitStringToArray_timeout": null,
-            "mutect2ConsensusTumorOnly.outputFileNamePrefix": "TGL49_0214",
+            "mutect2ConsensusTumorOnly.outputFileNamePrefix": "TGL_Test1",
             "mutect2ConsensusTumorOnly.reference": "hg38",
             "mutect2ConsensusTumorOnly.tumorInputGroup":{
                 "allUniqueBamAndIndex": {
                     "bam": {
                         "contents": {
-                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.all.unique.dcs.sorted.bam",
+                            "configuration": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/test_inputs/TGL_Test.all.unique.dcs.sorted.bam",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -67,7 +67,7 @@
                     },
                     "bamIndex": {
                         "contents": {
-                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.all.unique.dcs.sorted.bam.bai",
+                            "configuration": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/test_inputs/TGL_Test.all.unique.dcs.sorted.bam.bai",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -81,7 +81,7 @@
                 "dcsScBamAndIndex": {
                     "bam": {
                         "contents": {
-                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.dcs.sc.sorted.bam",
+                            "configuration": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/test_inputs/TGL_Test.dcs.sc.sorted.bam",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -93,7 +93,7 @@
                     },
                     "bamIndex":  {
                         "contents": {
-                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.dcs.sc.sorted.bam.bai",
+                            "configuration": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/test_inputs/TGL_Test.dcs.sc.sorted.bam.bai",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -107,7 +107,7 @@
                 "sscsScBamAndIndex": {
                     "bam":  {
                         "contents": {
-                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.sscs.sc.sorted.bam",
+                            "configuration": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/test_inputs/TGL_Test.sscs.sc.sorted.bam",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -119,7 +119,7 @@
                     },
                     "bamIndex": {
                         "contents": {
-                            "configuration": "/.mounts/labs/prod/vidarr/output-research/e9e2/cc0e/4c9b/e9e2cc0e4c9b47e4f762d8f26a90cdfa6d8e8357dbfe4bf814e331f3aca5fd2f/TGL49_0214_Cf_n_TS_BBCGP_4042_112696_LIB-04-0590_856077_Pl_1.sscs.sc.sorted.bam.bai",
+                            "configuration": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/test_inputs/TGL_Test.sscs.sc.sorted.bam.bai",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -131,7 +131,7 @@
                     }
                 }
             },
-            "mutect2ConsensusTumorOnly.tumorName": "TGL49_0214_Cf_n_TS",
+            "mutect2ConsensusTumorOnly.tumorName": "TGL_Tumor",
             "mutect2ConsensusTumorOnly.variantEffectPredictor.chromosomeArray_jobMemory": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.chromosomeArray_threads": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.chromosomeArray_timeout": null,
@@ -270,7 +270,7 @@
             {
               "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
               "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-              "output_metrics": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/output_expectation/TEST_0001.metrics",
+              "output_metrics": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/output_metrics/workflow_test_01.metrics",
               "type": "script"
             }
           ]
