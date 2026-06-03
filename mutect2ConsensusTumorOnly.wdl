@@ -68,6 +68,20 @@ workflow mutect2ConsensusTumorOnly {
       "variantEffectPredictor_vcf2maf_vepCacheDir": "$VEP_HG38_CACHE_ROOT/.vep",
       "variantEffectPredictor_vcf2maf_vepPath": "$VEP_ROOT/bin/",
       "variantEffectPredictor_vcf2maf_ncbiBuild": "GRCh38"
+      },
+    "hg38_noAlt": {
+      "inputRefDict": "$HG38_NOALT_ROOT/hg38_noAlt.dict",
+      "inputRefFai": "$HG38_NOALT_ROOT/hg38_noAlt.fa.fai",
+      "inputRefFasta": "$HG38_NOALT_ROOT/hg38_noAlt.fa",
+      "inputMutectModules": "gatk/4.1.6.0 hg38-noalt/p12 samtools/1.9",
+      "combineVariants_modules": "gatk/3.6-0 tabix/0.2.6 hg38-noalt/p12",
+      "variantEffectPredictor_vep_modules": "vep/105.0 tabix/0.2.6 vep-hg38-cache/105 hg38-noalt/p12",
+      "variantEffectPredictor_vep_vepCacheDir": "$VEP_HG38_CACHE_ROOT/.vep",
+      "variantEffectPredictor_vep_ncbiBuild": "GRCh38",
+      "variantEffectPredictor_vcf2maf_modules": "vcf2maf/1.6.21b tabix/0.2.6 hg38-noalt/p12 vep-hg38-cache/105",
+      "variantEffectPredictor_vcf2maf_vepCacheDir": "$VEP_HG38_CACHE_ROOT/.vep",
+      "variantEffectPredictor_vcf2maf_vepPath": "$VEP_ROOT/bin/",
+      "variantEffectPredictor_vcf2maf_ncbiBuild": "GRCh38"
       }
   }
   
