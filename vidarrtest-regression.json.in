@@ -157,6 +157,7 @@
             "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_basename": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_jobMemory": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_modules": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBed": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_threads": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_timeout": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.tumorOnlyAlign_basename": null,

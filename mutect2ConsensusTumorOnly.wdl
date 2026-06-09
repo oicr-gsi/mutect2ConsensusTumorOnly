@@ -244,9 +244,9 @@ workflow mutect2ConsensusTumorOnly {
         description: "maf output for tumor sample",
         vidarr_label: "tumorMafOutput"
     },
-    filterredMaf: {
+    filteredMaf: {
         description: "maf file after filtering",
-        vidarr_label: "filterredMaf"
+        vidarr_label: "filteredMaf"
     }
 }
   }
@@ -261,7 +261,7 @@ workflow mutect2ConsensusTumorOnly {
     File tumorVepVcf = variantEffectPredictor.outputVcf
     File tumorVepVcfIndex = variantEffectPredictor.outputTbi
     File? tumorMafOutput = tumorMaf
-    File? filterredMaf = filterMaf.filterredMaf
+    File? filteredMaf = filterMaf.filteredMaf
   }
 }
 
@@ -534,6 +534,6 @@ task filterMaf {
   }
 
   output {
-    File filterredMaf = "~{outputPrefix}_filtered_maf_for_tar.maf.gz"
+    File filteredMaf = "~{outputPrefix}_filtered_maf_for_tar.maf.gz"
   }
 }
