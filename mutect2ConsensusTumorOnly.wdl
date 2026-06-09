@@ -534,6 +534,6 @@ task filterMaf {
   }
 
   output {
-    File filteredMaf = "~{outputPrefix}_filtered_maf_for_tar.maf.gz"
+    File? filteredMaf = "~{outputPrefix}_filtered_maf_for_tar.maf.gz"
   }
 }
