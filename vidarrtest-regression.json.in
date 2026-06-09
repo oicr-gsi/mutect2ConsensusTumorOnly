@@ -186,7 +186,7 @@
             "read_from_cache": false
           },
         "metadata": {
-            "mutect2ConsensusTumorOnly.filterredMaf": {
+            "mutect2ConsensusTumorOnly.filteredMaf": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
