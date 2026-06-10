@@ -271,7 +271,7 @@
             {
               "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
               "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-              "output_metrics": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/output_expectation/TEST_0001.metrics",
+              "output_metrics": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/output_expectation/1.1.1/TEST_0001.metrics",
               "type": "script"
             }
           ]
