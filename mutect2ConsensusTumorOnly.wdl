@@ -68,6 +68,20 @@ workflow mutect2ConsensusTumorOnly {
       "variantEffectPredictor_vcf2maf_vepCacheDir": "$VEP_HG38_CACHE_ROOT/.vep",
       "variantEffectPredictor_vcf2maf_vepPath": "$VEP_ROOT/bin/",
       "variantEffectPredictor_vcf2maf_ncbiBuild": "GRCh38"
+      },
+    "hg38_noAlt": {
+      "inputRefDict": "$HG38_NOALT_ROOT/hg38_noAlt.dict",
+      "inputRefFai": "$HG38_NOALT_ROOT/hg38_noAlt.fa.fai",
+      "inputRefFasta": "$HG38_NOALT_ROOT/hg38_noAlt.fa",
+      "inputMutectModules": "gatk/4.1.6.0 hg38-noalt/p12 samtools/1.9",
+      "combineVariants_modules": "gatk/3.6-0 tabix/0.2.6 hg38-noalt/p12",
+      "variantEffectPredictor_vep_modules": "vep/105.0 tabix/0.2.6 vep-hg38-cache/105 hg38-noalt/p12",
+      "variantEffectPredictor_vep_vepCacheDir": "$VEP_HG38_CACHE_ROOT/.vep",
+      "variantEffectPredictor_vep_ncbiBuild": "GRCh38",
+      "variantEffectPredictor_vcf2maf_modules": "vcf2maf/1.6.21b tabix/0.2.6 hg38-noalt/p12 vep-hg38-cache/105",
+      "variantEffectPredictor_vcf2maf_vepCacheDir": "$VEP_HG38_CACHE_ROOT/.vep",
+      "variantEffectPredictor_vcf2maf_vepPath": "$VEP_ROOT/bin/",
+      "variantEffectPredictor_vcf2maf_ncbiBuild": "GRCh38"
       }
   }
   
@@ -230,9 +244,9 @@ workflow mutect2ConsensusTumorOnly {
         description: "maf output for tumor sample",
         vidarr_label: "tumorMafOutput"
     },
-    filterredMaf: {
+    filteredMaf: {
         description: "maf file after filtering",
-        vidarr_label: "filterredMaf"
+        vidarr_label: "filteredMaf"
     }
 }
   }
@@ -247,7 +261,7 @@ workflow mutect2ConsensusTumorOnly {
     File tumorVepVcf = variantEffectPredictor.outputVcf
     File tumorVepVcfIndex = variantEffectPredictor.outputTbi
     File? tumorMafOutput = tumorMaf
-    File? filterredMaf = filterMaf.filterredMaf
+    File? filteredMaf = filterMaf.filteredMaf
   }
 }
 
@@ -406,7 +420,7 @@ task filterMaf {
     String freqList ="$MAF_FILTERING_ROOT/TGL.frequency.20210609.annot.txt"
     String genesToKeep = "$MAF_FILTERING_ROOT/genes_to_keep.txt"
     String outputPrefix 
-    String modules = "python/3.9 pandas/1.4.2 maf-filtering/2023-10-06"
+    String modules = "python/3.9 pandas/1.4.2 maf-filtering/2024-07-10"
     Int jobMemory = 8
     Int timeout = 1
     Int threads = 1
@@ -520,6 +534,6 @@ task filterMaf {
   }
 
   output {
-    File filterredMaf = "~{outputPrefix}_filtered_maf_for_tar.maf.gz"
+    File? filteredMaf = "~{outputPrefix}_filtered_maf_for_tar.maf.gz"
   }
 }

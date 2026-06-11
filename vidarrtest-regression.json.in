@@ -157,6 +157,7 @@
             "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_basename": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_jobMemory": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_modules": null,
+            "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBed": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_threads": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.targetBedTask_timeout": null,
             "mutect2ConsensusTumorOnly.variantEffectPredictor.tumorOnlyAlign_basename": null,
@@ -185,7 +186,7 @@
             "read_from_cache": false
           },
         "metadata": {
-            "mutect2ConsensusTumorOnly.filterredMaf": {
+            "mutect2ConsensusTumorOnly.filteredMaf": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_mutect2ConsensusTumorOnlyWorkflow_TEST_0001_@JENKINSID@"
@@ -270,7 +271,7 @@
             {
               "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
               "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-              "output_metrics": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/output_expectation/TEST_0001.metrics",
+              "output_metrics": "/.mounts/labs/gsi/testdata/mutect2ConsensusTumorOnly/output_expectation/1.1.1/TEST_0001.metrics",
               "type": "script"
             }
           ]
